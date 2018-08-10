@@ -1,5 +1,6 @@
 package com.example.administrator.jni;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import java.util.Locale;
@@ -127,4 +128,14 @@ public class Util {
         return result;
     }
 
+
+    /**
+     * @param b 字节
+     * @return  8位型的二进制字符串
+     */
+    public static String zeroize(byte b){
+        String binaryString =Integer.toBinaryString(b);
+        String str="00000000";
+        return str.substring(binaryString.length())+binaryString;
+    }
 }

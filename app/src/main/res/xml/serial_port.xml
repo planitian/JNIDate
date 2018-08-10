@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+
+        android:title="电子称的配置">
+        <ListPreference
+            android:key="electronic_port"
+            android:title="电子称的端口"
+            android:persistent="true"
+             />
+        <ListPreference android:key="electronic_baudrates"
+             android:title="电子称的波特率"
+            android:entryValues="@array/baudrates_value"
+            android:entries="@array/baudrates_name"
+            android:persistent="true"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="灯的配置">
+       <ListPreference android:key="light_port"
+            android:title="电子灯的端口"
+           android:persistent="true"
+           />
+        <ListPreference android:key="light_baudrates"
+            android:title="灯的波特率"
+            android:entryValues="@array/baudrates_value"
+            android:entries="@array/baudrates_name"
+            android:persistent="true"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

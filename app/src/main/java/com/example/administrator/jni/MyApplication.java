@@ -26,16 +26,16 @@ public class MyApplication extends Application {
             }
 
             /* Open the serial port */
-//            Process su;
-//            su = Runtime.getRuntime().exec("/system/bin/su");
-//            String cmd = "chmod 777 " + path + "\n"
-//                    + "exit\n";
-//				/*String cmd = "chmod 777 /dev/s3c_serial0" + "\n"
-//				+ "exit\n";*/
-//            su.getOutputStream().write(cmd.getBytes());
-//            if ((su.waitFor() != 0)) {
-//                throw new SecurityException();
-//            }
+            Process su;
+            su = Runtime.getRuntime().exec("/system/xbin/su");
+            String cmd = "chmod 777 " + path + "\n"
+                    + "exit\n";
+				/*String cmd = "chmod 777 /dev/s3c_serial0" + "\n"
+				+ "exit\n";*/
+            su.getOutputStream().write(cmd.getBytes());
+            if ((su.waitFor() != 0)) {
+                throw new SecurityException();
+            }
             System.out.println(">>>>>>>>>"+path+"  "+baudrate);
             mSerialPort = new SerialPort(new File(path), baudrate, 0);
         }

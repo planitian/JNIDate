@@ -61,9 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         show = findViewById(R.id.show);
         close = findViewById(R.id.close);
         select=findViewById(R.id.select);
-
         executorService = Executors.newCachedThreadPool();
-
         close.setOnClickListener(this);
         show.setOnClickListener(this);
         connect.setOnClickListener(this);
@@ -80,9 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                startActivity(new Intent(MainActivity.this, SerialPortPreferences.class));
                 DevicePre devicePre = new DevicePre();
                 devicePre.setContext(MainActivity.this);
+                TestPrefer testPrefer=new TestPrefer();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.content, devicePre, "ss");
+//                fragmentTransaction.add(R.id.content,testPrefer,"ss");
                 fragmentTransaction.show(devicePre);
                 fragmentTransaction.commit();
                 break;
