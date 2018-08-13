@@ -115,7 +115,7 @@ public class SerialPortFunction {
                 path = sp.getString("light_port", "");
                 baudrate = Integer.decode(sp.getString("light_baudrates", "-1"));
             }
-        System.out.println("SerialPortFunction  串口 "+path+ "波特率  "+baudrate);
+        System.out.println("SerialPortFunction  串口 "+path+ "波特率  :"+baudrate);
             /* Check parameters */
             if ( (path.length() == 0) || (baudrate == -1)) {
                 throw new InvalidParameterException();
