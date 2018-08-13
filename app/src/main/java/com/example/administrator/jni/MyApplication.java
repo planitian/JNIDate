@@ -13,12 +13,22 @@ import android_serialport_api.SerialPortFinder;
 public class MyApplication extends Application {
    public SerialPortFinder serialPortFinder=new SerialPortFinder();
    private SerialPort mSerialPort=null;
-    public SerialPort getSerialPort() throws SecurityException, IOException, InvalidParameterException, InterruptedException {
+    public SerialPort getSerialPort(String devicesName) throws SecurityException, IOException, InvalidParameterException, InterruptedException {
         if (mSerialPort == null) {
             /* Read serial port parameters */
-            SharedPreferences sp = getSharedPreferences("com.example.administrator.jni_preferences", MODE_PRIVATE);
-            String path = sp.getString("DEVICE", "");
-            int baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+            String path;
+            int baudrate;
+            if (devicesName.equals("ele")) {
+                //电子称的
+                SharedPreferences sp = getSharedPreferences("com.example.administrator.jni_preferences", MODE_PRIVATE);
+                path = sp.getString("DEVICE", "");
+                baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+            } else {
+                //灯的
+                SharedPreferences sp = getSharedPreferences("com.example.administrator.jni_preferences", MODE_PRIVATE);
+                path = sp.getString("DEVICE", "");
+                baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+            }
 
             /* Check parameters */
             if ( (path.length() == 0) || (baudrate == -1)) {

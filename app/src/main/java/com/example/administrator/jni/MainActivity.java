@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.connect:
                 serialPortFinder = ((MyApplication) getApplication()).serialPortFinder;
                 try {
-                    serialPort = ((MyApplication) getApplication()).getSerialPort();
+                    serialPort = ((MyApplication) getApplication()).getSerialPort("ele");
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }

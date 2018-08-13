@@ -1,8 +1,12 @@
 package com.example.administrator.jni;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Util {
@@ -131,11 +135,47 @@ public class Util {
 
     /**
      * @param b 字节
-     * @return  8位型的二进制字符串
+     * @return 8位型的二进制字符串
      */
-    public static String zeroize(byte b){
-        String binaryString =Integer.toBinaryString(b);
-        String str="00000000";
-        return str.substring(binaryString.length())+binaryString;
+    public static String zeroize(byte b) {
+        String binaryString = Integer.toBinaryString(b);
+        String str = "00000000";
+        return str.substring(binaryString.length()) + binaryString;
     }
+
+
+    /**
+     * @param src      源数组
+     * @param specific 动态参数
+     * @return 返回源数组同等类型的数组
+     */
+    @SuppressWarnings("unchecked")
+    public   static  <T> T[] arrayAdd(T[] src, T... specific) {
+//返回类的组件类型的数组。如果这个类并不代表一个数组类，此方法返回null。
+        Class<?> type = src.getClass().getComponentType();
+        T[] temp = (T[]) Array.newInstance(type, src.length + specific.length);
+        System.arraycopy(src, 0, temp, 0, src.length);
+        System.arraycopy(specific, 0, temp, src.length, specific.length);
+        return temp;
+    }
+
+    /**
+     * @param content  要删除内容的数组
+     * @param specific 删除的内容
+     * @return 删除指定内容后的数组
+     */
+    public  static  <T> T[] arraySpeDel(T[] content, T specific) {
+
+        int len = content.length;
+        for (int i = 0; i < content.length; i++) {
+            if (content[i].equals(specific)) {
+                System.arraycopy(content, i + 1, content, i, len - 1 - i);
+                break;
+            }
+        }
+        return Arrays.copyOf(content, len - 1);
+    }
+
+
+
 }
