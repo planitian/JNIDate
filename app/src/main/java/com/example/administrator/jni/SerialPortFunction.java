@@ -35,7 +35,7 @@ public class SerialPortFunction {
         return serialPortFunction;
     }
 
-    private void setContext(Context context) {
+    public void setContext(Context context) {
         this.context = context;
     }
 
@@ -107,32 +107,32 @@ public class SerialPortFunction {
             if (devicesName.equals("ele")) {
                 //电子称的
                 SharedPreferences sp = context.getSharedPreferences("com.example.administrator.jni_preferences", MODE_PRIVATE);
-                path = sp.getString("DEVICE", "");
-                baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+                path = sp.getString("electronic_port", "");
+                baudrate = Integer.decode(sp.getString("electronic_baudrates", "-1"));
             } else {
                 //灯的
                 SharedPreferences sp = context.getSharedPreferences("com.example.administrator.jni_preferences", MODE_PRIVATE);
-                path = sp.getString("DEVICE", "");
-                baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+                path = sp.getString("light_port", "");
+                baudrate = Integer.decode(sp.getString("light_baudrates", "-1"));
             }
-
+        System.out.println("SerialPortFunction  串口 "+path+ "波特率  "+baudrate);
             /* Check parameters */
             if ( (path.length() == 0) || (baudrate == -1)) {
                 throw new InvalidParameterException();
             }
 
-            /* Open the serial port */
-            Process su;
-            su = Runtime.getRuntime().exec("/system/xbin/su");
-            String cmd = "chmod 777 " + path + "\n"
-                    + "exit\n";
-				/*String cmd = "chmod 777 /dev/s3c_serial0" + "\n"
-				+ "exit\n";*/
-            su.getOutputStream().write(cmd.getBytes());
-            if ((su.waitFor() != 0)) {
-                throw new SecurityException();
-            }
-            System.out.println(">>>>>>>>>"+path+"  "+baudrate);
+//            /* Open the serial port */
+//            Process su;
+//            su = Runtime.getRuntime().exec("/system/xbin/su");
+//            String cmd = "chmod 777 " + path + "\n"
+//                    + "exit\n";
+//				/*String cmd = "chmod 777 /dev/s3c_serial0" + "\n"
+//				+ "exit\n";*/
+//            su.getOutputStream().write(cmd.getBytes());
+//            if ((su.waitFor() != 0)) {
+//                throw new SecurityException();
+//            }
+//            System.out.println(">>>>>>>>>"+path+"  "+baudrate);
 
 
         return  new SerialPort(new File(path), baudrate, 0);

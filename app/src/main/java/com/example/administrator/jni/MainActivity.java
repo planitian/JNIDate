@@ -33,7 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button send;
     private Button show;
     private Button close;
+    private Button lightConnect;
+    private Button lightSend;
     private TextView showData;
+
 
     String[] devices;
     String[] devicesPath;

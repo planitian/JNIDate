@@ -31,7 +31,7 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.serial_port);
         mSerialPortFinder = ((MyApplication) getActivity().getApplication()).serialPortFinder;
-        getPreferenceManager().setSharedPreferencesName("SerialPort");
+//        getPreferenceManager().setSharedPreferencesName("SerialPort");
         // Devices
         final ListPreference eleDevices = (ListPreference) findPreference("electronic_port");
         ListPreference baudrates = (ListPreference) findPreference("electronic_baudrates");
@@ -43,12 +43,11 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
 //        DevicesPath = new ArrayList<>(Arrays.asList(entryValues));
         System.out.println(this.getClass().getSimpleName() + "  " + entries.toString());
 
-        if (!lightDevices.getValue().isEmpty()) {
-            entries = Util.arraySpeDel(entries, lightDevices.getEntry().toString());
-            entryValues = Util.arraySpeDel(entryValues, lightDevices.getValue());
-        }
-        entries = Util.arraySpeDel(entries, eleDevices.getEntry().toString());
-        entryValues = Util.arraySpeDel(entryValues, eleDevices.getValue());
+//        if (!lightDevices.getValue().isEmpty()) {
+//            entries = Util.arraySpeDel(entries, lightDevices.getEntry().toString());
+//            entryValues = Util.arraySpeDel(entryValues, lightDevices.getValue());
+//        }
+
         eleDevices.setEntries(entries);
         eleDevices.setEntryValues(entryValues);
         eleDevices.setSummary(eleDevices.getValue());
@@ -59,10 +58,10 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
         baudrates.setOnPreferenceChangeListener(this);
 
 
-        if (!eleDevices.getValue().isEmpty()) {
-            entries = Util.arraySpeDel(entries, eleDevices.getEntry().toString());
-            entryValues = Util.arraySpeDel(entryValues, eleDevices.getValue());
-        }
+//        if (!eleDevices.getValue().isEmpty()) {
+//            entries = Util.arraySpeDel(entries, eleDevices.getEntry().toString());
+//            entryValues = Util.arraySpeDel(entryValues, eleDevices.getValue());
+//        }
         lightDevices.setEntries(entries);
         lightDevices.setEntryValues(entryValues);
         lightDevices.setSummary(lightDevices.getValue());
@@ -82,18 +81,16 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        switch (preference.getKey()) {
-            case "electronic_port":
-                entries=mSerialPortFinder.getAllDevices();
-                entryValues=mSerialPortFinder.getAllDevicesPath();
-                break;
-            case "light_port":
-                entries=mSerialPortFinder.getAllDevices();
-                entryValues=mSerialPortFinder.getAllDevicesPath();
-                break;
-
-
-        }
+//        switch (preference.getKey()) {
+//            case "electronic_port":
+//                entries=mSerialPortFinder.getAllDevices();
+//                entryValues=mSerialPortFinder.getAllDevicesPath();
+//                break;
+//            case "light_port":
+//                entries=mSerialPortFinder.getAllDevices();
+//                entryValues=mSerialPortFinder.getAllDevicesPath();
+//                break;
+//        }
 
         preference.setSummary(newValue.toString());
 
