@@ -93,7 +93,6 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
 //        }
 
         preference.setSummary(newValue.toString());
-
         return true;
     }
 

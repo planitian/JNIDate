@@ -3,10 +3,13 @@ package com.example.administrator.jni;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +33,13 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
     Button lightSend;
     private SerialPortFunction serialPortFunction;
 
-
+   Handler handler=new Handler(){
+       @Override
+       public void handleMessage(Message msg) {
+           super.handleMessage(msg);
+           textView.setText(msg.obj.toString());
+       }
+   };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +64,13 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
 
     @OnClick(R.id.send)
     public void setSend(){
-       serialPortFunction.sendEle("");
+       serialPortFunction.sendEle("FE");
+        Toast.makeText(this,"发送灯指令",Toast.LENGTH_SHORT).show();
     }
     @OnClick(R.id.light_send)
     public void setLightSend(){
         serialPortFunction.sendLight("FE050000FF009835");
+
     }
 
     @OnClick(R.id.show)
@@ -82,8 +93,8 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
     @Override
     public void weight(Double weight) {
         System.out.println("Main2Activity weight"+weight);
-        runOnUiThread(()->{
-            textView.setText(weight.toString());
-        });
+        Message message=Message.obtain();
+        message.obj=weight;
+        handler.sendMessage(message);
     }
 }

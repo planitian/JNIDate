@@ -7,6 +7,8 @@ import android.support.v4.app.NavUtils;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android_serialport_api.SerialPort;
 import android_serialport_api.SerialPortFinder;
@@ -16,8 +18,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SerialPortFunction {
     private  volatile  static   SerialPortFunction serialPortFunction;
-    private SerialPortFinder serialPortFinder=new SerialPortFinder();
     private  ReadSerialPort readSerialPort;
+    private ExecutorService executorService;
 
 
     private Context context;
@@ -33,6 +35,10 @@ public class SerialPortFunction {
             }
         }
         return serialPortFunction;
+    }
+
+    private SerialPortFunction(){
+        executorService= Executors.newCachedThreadPool();
     }
 
     public void setContext(Context context) {
@@ -51,37 +57,45 @@ public class SerialPortFunction {
 
         readSerialPort=new ReadSerialPort(eleSerial);
         readSerialPort.setDataWeight(dataWeight);
-         readSerialPort.run();
+        executorService.submit(readSerialPort);
     }
 
-    public void sendEle(String command){
-        if (eleSerial==null){
-            throw new NullPointerException("电子称端口没有打开");
-        }
-        try {
-            eleSerial.getOutputStream().write(Util.toBytes(command));
-            eleSerial.getOutputStream().flush();
-            eleSerial.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendLight(String conmand){
-        if (lightSerial==null){
+    public void sendEle(final String command){
+        Runnable ele = () -> {
+            if (eleSerial==null){
+                try {
+                    eleSerial=getSerialPort("ele");
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                lightSerial=getSerialPort("light");
-            } catch (IOException | InterruptedException e) {
+                eleSerial.getOutputStream().write(Util.toBytes(command));
+                eleSerial.getOutputStream().flush();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        try {
-            lightSerial.getOutputStream().write(Util.toBytes(conmand));
-            lightSerial.getOutputStream().flush();
-            lightSerial.getOutputStream().close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        };
+        executorService.submit(ele);
+    }
+
+    public void sendLight(final String conmand){
+        Runnable runnable = () -> {
+            if (lightSerial==null){
+                try {
+                    lightSerial=getSerialPort("light");
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                lightSerial.getOutputStream().write(Util.toBytes(conmand));
+                lightSerial.getOutputStream().flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+        executorService.submit(runnable);
     }
 
     public void closeEle(){
