@@ -1,14 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,4 +23,24 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    // Sdk and tools
+    // Support library and architecture components support minSdk 14 and above.
+    compileSdkVersion = 27
+    minSdkVersion = 24
+    targetSdkVersion = 27
+
+    // App dependencies
+    supportLibraryVersion = '27.1.1'
+    guavaVersion = '22.0'
+    butterknifeVersion = '8.8.1'
+    constraintayoutVersion ='1.1.2'
+    junitVersion ='4.12'
+    runner='1.0.2'
+    espressoCore= '3.0.2'
+
+
+
 }

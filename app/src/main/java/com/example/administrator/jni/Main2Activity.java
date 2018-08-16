@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
     @BindView(R.id.select)
     Button select;
     @BindView(R.id.send)
-    Button send;
+    EditText send;
     @BindView(R.id.show)
     Button show;
     @BindView(R.id.close)
@@ -69,7 +70,8 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
     }
     @OnClick(R.id.light_send)
     public void setLightSend(){
-        serialPortFunction.sendLight("FE050000FF009835");
+        String temp=send.getText().toString().trim();
+        serialPortFunction.sendLight(temp);
 
     }
 
