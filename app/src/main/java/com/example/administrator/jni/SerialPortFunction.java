@@ -45,7 +45,7 @@ public class SerialPortFunction {
         this.context = context;
     }
 
-
+  //开始电子秤读取
     public void startSerialReadEle( ReadSerialPort.DataWeight dataWeight){
         if (eleSerial==null){
             try {
@@ -54,12 +54,11 @@ public class SerialPortFunction {
                 e.printStackTrace();
             }
         }
-
         readSerialPort=new ReadSerialPort(eleSerial);
         readSerialPort.setDataWeight(dataWeight);
         executorService.submit(readSerialPort);
     }
-
+  //发送电子秤指令
     public void sendEle(final String command){
         Runnable ele = () -> {
             if (eleSerial==null){
@@ -78,7 +77,7 @@ public class SerialPortFunction {
         };
         executorService.submit(ele);
     }
-
+   //发送灯指令
     public void sendLight(final String conmand){
         Runnable runnable = () -> {
             if (lightSerial==null){
@@ -98,6 +97,7 @@ public class SerialPortFunction {
         executorService.submit(runnable);
     }
 
+    //关闭电子秤
     public void closeEle(){
         if (readSerialPort!=null){
             readSerialPort.isEixt=true;
@@ -107,8 +107,10 @@ public class SerialPortFunction {
             eleSerial=null;
         }
     }
+    //关闭灯
    public  void closeLight(){
         if (lightSerial!=null){
+            lightSerial.close();
             lightSerial=null;
         }
    }

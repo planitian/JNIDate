@@ -1,3 +1,4 @@
+/*
 package com.example.administrator.jni;
 
 import android.app.FragmentManager;
@@ -164,3 +165,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 ///>>>>>>>>>>
 }
+*/

@@ -157,8 +157,8 @@ public class ReadSerialPort implements Runnable {
                                 nowWeight = tempWeight;
                                 weightMaxCount = 3;
                                 checkNotNull(dataWeight);
-                                System.out.println("要发送的重量  "+nowWeight.doubleValue());
-                                dataWeight.weight(nowWeight.doubleValue());
+                                System.out.println("要发送的重量  "+MoneyUtil.formatMoney(nowWeight));
+                                dataWeight.weight(MoneyUtil.formatMoney(nowWeight));
                             }
                         } else {
                             System.out.println("超出误差范围 次数归3");
@@ -179,10 +179,16 @@ public class ReadSerialPort implements Runnable {
                 e.printStackTrace();
             }
         }
+        try {
+            optionalSerialPort.orElseThrow(() -> new NullPointerException("SerialPort元素不存在")).close();
+            System.out.println("关闭");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
 
     interface DataWeight {
-        void weight(Double weight);
+        void weight(String weight);
     }
 }

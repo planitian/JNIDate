@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class MoneyUtil {
-    public static DecimalFormat fnum = new DecimalFormat("##0.00000000000000000000");
+    public static DecimalFormat fnum = new DecimalFormat("##0.000");
 
     /**
      * 格式化金额
      * @param value
      * @return
      */
-    public static String formatMoney(String value){
-        if(value == null || value == "" ){
-            value = "0.00";
+    public static String formatMoney(BigDecimal value){
+        if (value==null){
+            return null;
         }
-        return fnum.format(new BigDecimal(value));
+        return fnum.format(value);
     }
 
 

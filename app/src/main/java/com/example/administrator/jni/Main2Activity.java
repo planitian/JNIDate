@@ -16,43 +16,59 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Main2Activity extends AppCompatActivity implements ReadSerialPort.DataWeight{
+public class Main2Activity extends AppCompatActivity implements ReadSerialPort.DataWeight {
 
-    @BindView(R.id.select)
-    Button select;
-    @BindView(R.id.send)
-    EditText send;
-    @BindView(R.id.show)
-    Button show;
-    @BindView(R.id.close)
-    Button close;
-    @BindView(R.id.textView)
-    TextView textView;
+
     @BindView(R.id.content)
     FrameLayout content;
-    @BindView(R.id.light_send)
-    Button lightSend;
+    @BindView(R.id.select)
+    Button select;
+    @BindView(R.id.ele_content)
+    EditText eleContent;
+    @BindView(R.id.ele_send)
+    Button eleSend;
+    @BindView(R.id.red_open)
+    Button redOpen;
+    @BindView(R.id.red_close)
+    Button redClose;
+    @BindView(R.id.green_open)
+    Button greenOpen;
+    @BindView(R.id.green_close)
+    Button greenClose;
+    @BindView(R.id.blue_open)
+    Button blueOpen;
+    @BindView(R.id.blue_close)
+    Button blueClose;
+    @BindView(R.id.light_close)
+    Button lightClose;
+    @BindView(R.id.show)
+    TextView show;
+    @BindView(R.id.ele_open)
+    Button eleOpen;
+    @BindView(R.id.ele_close)
+    Button eleClose;
     private SerialPortFunction serialPortFunction;
 
-   Handler handler=new Handler(){
-       @Override
-       public void handleMessage(Message msg) {
-           super.handleMessage(msg);
-           textView.setText(msg.obj.toString());
-       }
-   };
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            show.setText(msg.obj.toString());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        serialPortFunction=SerialPortFunction.getInstance();
+        serialPortFunction = SerialPortFunction.getInstance();
         serialPortFunction.setContext(this);
     }
 
+    //选择串口
     @OnClick(R.id.select)
-    public void setSelect(){
+    public void setSelect() {
         DevicePre devicePre = new DevicePre();
         devicePre.setContext(Main2Activity.this);
         FragmentManager fragmentManager = getFragmentManager();
@@ -62,29 +78,86 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
         fragmentTransaction.commit();
     }
 
-
-    @OnClick(R.id.send)
-    public void setSend(){
-       serialPortFunction.sendEle("FE");
-        Toast.makeText(this,"发送灯指令",Toast.LENGTH_SHORT).show();
-    }
-    @OnClick(R.id.light_send)
-    public void setLightSend(){
-        String temp=send.getText().toString().trim();
-        serialPortFunction.sendLight(temp);
-
+    @OnClick(R.id.ele_open)
+    public void setEleOpen() {
+        serialPortFunction.startSerialReadEle(this::weight);
     }
 
-    @OnClick(R.id.show)
-    public void setShow(){
-      serialPortFunction.startSerialReadEle(this);
+    //电子秤发送
+    @OnClick(R.id.ele_send)
+    public void setEleSend() {
+        serialPortFunction.sendEle(eleContent.toString().trim());
+        popUp(eleContent.toString().trim());
     }
 
-    @OnClick(R.id.close)
-    public void setClose(){
+    @OnClick(R.id.ele_close)
+    public void setEleClose() {
         serialPortFunction.closeEle();
-        serialPortFunction.closeLight();
     }
+
+    //红灯开
+    @OnClick(R.id.red_open)
+    public void setRedOpen() {
+        ligthCloseAll();
+        String redOpen = "FE050000FF009835";
+        popUp(redOpen);
+        serialPortFunction.sendLight(redOpen);
+
+    }
+
+    //红灯关
+    @OnClick(R.id.red_close)
+    public void setRedClose() {
+        String redClose = "FE0500000000D9C5";
+        popUp(redClose);
+        serialPortFunction.sendLight(redClose);
+    }
+
+    //绿灯开
+    @OnClick(R.id.green_open)
+    public void setGreenOpen() {
+        ligthCloseAll();
+        String greenOpen = "FE050002FF0039F5";
+        popUp(greenOpen);
+        serialPortFunction.sendLight(greenOpen);
+
+    }
+
+    //绿灯关
+    @OnClick(R.id.green_close)
+    public void setGreenClose() {
+        String greenClose = "FE05000200007805";
+        popUp(greenClose);
+        serialPortFunction.sendLight(greenClose);
+    }
+
+    //蓝灯开
+    @OnClick(R.id.blue_open)
+    public void setBlueOpen() {
+        ligthCloseAll();
+        String blueOpen = "FE050001FF00C9F5";
+        popUp(blueOpen);
+        serialPortFunction.sendLight(blueOpen);
+    }
+
+    @OnClick(R.id.blue_close)
+    public void setBlueClose() {
+        String blueClose = "FE05000100008805";
+        popUp(blueClose);
+        serialPortFunction.sendLight(blueClose);
+    }
+
+    //灯串口关闭
+    @OnClick(R.id.light_close)
+    public void setLightClose() {
+        serialPortFunction.closeEle();
+    }
+
+
+    public void popUp(String content) {
+        Toast.makeText(this, content, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -93,10 +166,17 @@ public class Main2Activity extends AppCompatActivity implements ReadSerialPort.D
     }
 
     @Override
-    public void weight(Double weight) {
-        System.out.println("Main2Activity weight"+weight);
-        Message message=Message.obtain();
-        message.obj=weight;
+    public void weight(String weight) {
+        System.out.println("Main2Activity weight" + weight);
+        Message message = Message.obtain();
+        message.obj = weight;
         handler.sendMessage(message);
+    }
+
+    //关闭所有灯
+    public void ligthCloseAll() {
+        redClose.performClick();
+        blueClose.performClick();
+        greenClose.performClick();
     }
 }

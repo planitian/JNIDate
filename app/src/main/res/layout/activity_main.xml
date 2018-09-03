@@ -1,114 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+  >
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="79dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/connect"
-        app:layout_constraintGuide_end="176dp"
-        app:layout_constraintStart_toEndOf="@+id/content" />
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        tools:layout_height="200dp"
+        />
 
     <Button
         android:id="@+id/select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="选择串口"
-        app:layout_constraintBottom_toTopOf="@+id/connect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:hint="电子称发送"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/light_connect" />
-
+        android:text="选择串口" />
     <Button
-        android:id="@+id/show"
+        android:id="@+id/ele_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="显示数据"
-        app:layout_constraintBottom_toTopOf="@+id/close"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="电子秤打开"
+        />
 
-    <Button
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="4dp"
-        android:text="关闭"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="horizontal">
 
+        <EditText
+            android:id="@+id/ele_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="电子秤指令" />
+
+        <Button
+            android:id="@+id/ele_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电子秤发送" />
+
+        <Button
+            android:id="@+id/ele_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电子秤串口关闭" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红灯" />
+
+        <Button
+            android:id="@+id/red_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="开" />
+
+        <Button
+            android:id="@+id/red_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绿灯" />
+
+        <Button
+            android:id="@+id/green_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="开" />
+
+        <Button
+            android:id="@+id/green_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝灯" />
+
+        <Button
+            android:id="@+id/blue_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="开" />
+
+        <Button
+            android:id="@+id/blue_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关" />
+    </LinearLayout>
+     <Button
+         android:id="@+id/light_close"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="灯串口关闭"
+         />
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:id="@+id/show"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="显示的内容"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="0dp"
-        android:layout_height="428dp"
-        android:layout_marginEnd="207dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="总连接"
-        app:layout_constraintTop_toBottomOf="@+id/select"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="72dp" />
-
-    <Button
-        android:id="@+id/light_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="18dp"
-        android:text="灯发送"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/send" />
-
-    <Button
-        android:id="@+id/light_connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="20dp"
-        android:text="灯连接"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect" />
-
-
-</android.support.constraint.ConstraintLayout>
+        android:textSize="22sp"
+        />
+</LinearLayout>
