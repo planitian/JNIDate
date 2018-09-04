@@ -39,6 +39,7 @@ dependencies {
     implementation "com.google.guava:guava:$rootProject.guavaVersion"
     implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-    implementation files('libs/mysql-connector-java-5.1.6-bin.jar')
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+
+    implementation files('libs/mysql-connector-java-5.1.6-bin.jar')
 }

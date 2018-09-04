@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JNI</string>
+    <string name="app_name">串口测试</string>
     <string name="error_configuration">Please configure your serial port first.</string>
     <string name="error_security">You do not have read/write permission to the serial
 		port.</string>

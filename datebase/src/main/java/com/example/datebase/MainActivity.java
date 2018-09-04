@@ -51,16 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.date_connect)
     public void setDateConnect(){
-        /*new Thread(()->{
-            try {
-                Class<?> date=Class.forName("com.mysql.jdbc.Driver");
-                connection= DriverManager.getConnection("jdbc:mysql:"+"//192.168.1.40:3306/cclcloud?useUnicode=true&characterEncoding=utf-8&Pooling=true","zzpos","123456");
-                System.out.println("success"+connection.isClosed()+connection.isReadOnly());
-                optionalStatement=Optional.ofNullable(connection.createStatement());
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
-        }).start();*/
         Runnable runnable = () -> BeanUtil.getInstance().startConnect(null,null,null);
         new Thread(runnable).start();
     }
@@ -68,63 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.date_close)
     public void setDateClosea()  {
         BeanUtil.getInstance().closeConnect();
-
-    /*    Runnable runnable = () -> {
-            Statement statement=optionalStatement.orElseGet(()->{
-                try {
-                    return connection.createStatement();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-           return null; });
-            String sql = "select * from t_d_goodsweight limit 2";
-            assert statement != null;
-            ResultSet result = null;
-            ResultSetMetaData metaData;
-            try {
-                result = statement.executeQuery(sql);
-//                    System.out.println(result.getString(4)+result.getObject(4));
-
-
-                //单个
-//                    GoodsWeight goodsWeight=BeanUtil.single(result,GoodsWeight.class);
-//                    assert goodsWeight != null;
-//                    System.out.println(goodsWeight.toString());
-
-                //集合
-
-              *//*  List<GoodsWeight> re=BeanUtil.multitude(result,GoodsWeight.class);
-                if (re!=null) {
-                    re.forEach(goodsWeight -> {
-                        System.out.println("main"+goodsWeight.toString());
-                    });
-                }
-
-               String issuccess= BeanUtil.updatePre(re.get(0),(update)->{
-                    update.setWeight(new BigDecimal(10));
-                    update.setQty(100);
-                     return update;
-                });
-                statement.execute(issuccess);
-                Snackbar.make(dateClose,issuccess+"",Snackbar.LENGTH_SHORT).show();*//*
-
-              *//*  metaData=result.getMetaData();
-                int count=metaData.getColumnCount();
-                for (int i = 0; i <count ; i++) {
-                        Log.d("字段名",metaData.getColumnName(i+1));
-                    System.out.println(">>>>>"+metaData.getColumnTypeName(1));
-                        Log.d("字段类型", String.valueOf(metaData.getColumnType(i+1)));
-                    System.out.println("字段label    "+metaData.getColumnLabel(i+1));
-                }
-               StringBuilder str= new StringBuilder();
-                while (result.next()){
-                    System.out.println(result.getString(4)+result.getObject(4));
-                }*//*
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        };
-      new Thread(runnable).start();*/
     }
 
     @OnClick(R.id.send_message)

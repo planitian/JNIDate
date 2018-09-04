@@ -115,7 +115,7 @@ public class SerialPortFunction {
         }
    }
 
-
+    //得到串口设备
     private SerialPort getSerialPort(String devicesName) throws SecurityException, IOException, InvalidParameterException, InterruptedException {
             /* Read serial port parameters */
             String path;

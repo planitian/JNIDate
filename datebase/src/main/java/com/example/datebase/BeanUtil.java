@@ -212,9 +212,6 @@ public class BeanUtil {
                 }
                 list.add(temp);
             }
-        /*    list.forEach((pa)->{
-                System.out.println("Util"+pa.toString());
-            });*/
             return list;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SQLException | NoSuchFieldException e) {
             e.printStackTrace();
@@ -235,8 +232,8 @@ public class BeanUtil {
                 if (methods[i].getName().startsWith("get")) {
                     System.out.println("methodName " + methods[i].getName());
                     try {
-                        Object out = methods[i].invoke(goodsWeight, null);
-                        Object in = methods[i].invoke(inGoodsWeight, null);
+                        Object out = methods[i].invoke(goodsWeight, (Object) null);
+                        Object in = methods[i].invoke(inGoodsWeight, (Object) null);
                         String pro = methods[i].getName().toLowerCase().substring(3);
                         System.out.println("pro " + pro);
                         if (!out.toString().equals(in.toString())) {

@@ -31,7 +31,6 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.serial_port);
         mSerialPortFinder = ((MyApplication) getActivity().getApplication()).serialPortFinder;
-//        getPreferenceManager().setSharedPreferencesName("SerialPort");
         // Devices
         final ListPreference eleDevices = (ListPreference) findPreference("electronic_port");
         ListPreference baudrates = (ListPreference) findPreference("electronic_baudrates");
@@ -39,15 +38,7 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
         ListPreference lightDevices = (ListPreference) findPreference("light_port");
         entries = mSerialPortFinder.getAllDevices();
         entryValues = mSerialPortFinder.getAllDevicesPath();
-//        DevicesName = new ArrayList<>(Arrays.asList(entries));
-//        DevicesPath = new ArrayList<>(Arrays.asList(entryValues));
         System.out.println(this.getClass().getSimpleName() + "  " + entries.toString());
-
-//        if (!lightDevices.getValue().isEmpty()) {
-//            entries = Util.arraySpeDel(entries, lightDevices.getEntry().toString());
-//            entryValues = Util.arraySpeDel(entryValues, lightDevices.getValue());
-//        }
-
         eleDevices.setEntries(entries);
         eleDevices.setEntryValues(entryValues);
         eleDevices.setSummary(eleDevices.getValue());
@@ -57,41 +48,16 @@ public class DevicePre extends PreferenceFragment implements Preference.OnPrefer
         baudrates.setSummary(baudrates.getValue());
         baudrates.setOnPreferenceChangeListener(this);
 
-
-//        if (!eleDevices.getValue().isEmpty()) {
-//            entries = Util.arraySpeDel(entries, eleDevices.getEntry().toString());
-//            entryValues = Util.arraySpeDel(entryValues, eleDevices.getValue());
-//        }
         lightDevices.setEntries(entries);
         lightDevices.setEntryValues(entryValues);
         lightDevices.setSummary(lightDevices.getValue());
         lightDevices.setOnPreferenceChangeListener(this);
         lightBaudrates.setSummary(lightBaudrates.getValue());
         lightBaudrates.setOnPreferenceChangeListener(this);
-        // Baud rates
-//        final ListPreference baudrates = (ListPreference)findPreference("BAUDRATE");
-//        baudrates.setSummary(baudrates.getValue());
-//        baudrates.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            public boolean onPreferenceChange(Preference preference, Object newValue) {
-//                preference.setSummary((String)newValue);
-//                return true;
-//            }
-//        });
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-//        switch (preference.getKey()) {
-//            case "electronic_port":
-//                entries=mSerialPortFinder.getAllDevices();
-//                entryValues=mSerialPortFinder.getAllDevicesPath();
-//                break;
-//            case "light_port":
-//                entries=mSerialPortFinder.getAllDevices();
-//                entryValues=mSerialPortFinder.getAllDevicesPath();
-//                break;
-//        }
-
         preference.setSummary(newValue.toString());
         return true;
     }
